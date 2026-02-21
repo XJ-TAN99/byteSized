@@ -6,17 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		2647265F2F49828E0093116D /* currency-converter-challenge.md in Resources */ = {isa = PBXBuildFile; fileRef = 2647265E2F49828E0093116D /* currency-converter-challenge.md */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		2647263C2F497CB80093116D /* currency_converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currency_converter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2647265E2F49828E0093116D /* currency-converter-challenge.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "currency-converter-challenge.md"; sourceTree = "<group>"; };
+		264726692F49950E0093116D /* currency_converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currency_converter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2647263E2F497CB80093116D /* currency_converter */ = {
+		2647266B2F49950E0093116D /* currency_converter */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = currency_converter;
 			sourceTree = "<group>";
@@ -24,7 +19,7 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		264726392F497CB80093116D /* Frameworks */ = {
+		264726662F49950E0093116D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -34,19 +29,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		264726332F497CB80093116D = {
+		264726602F49950E0093116D = {
 			isa = PBXGroup;
 			children = (
-				2647263E2F497CB80093116D /* currency_converter */,
-				2647263D2F497CB80093116D /* Products */,
-				2647265E2F49828E0093116D /* currency-converter-challenge.md */,
+				2647266B2F49950E0093116D /* currency_converter */,
+				2647266A2F49950E0093116D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		2647263D2F497CB80093116D /* Products */ = {
+		2647266A2F49950E0093116D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2647263C2F497CB80093116D /* currency_converter.app */,
+				264726692F49950E0093116D /* currency_converter.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -54,75 +48,74 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2647263B2F497CB80093116D /* currency_converter */ = {
+		264726682F49950E0093116D /* currency_converter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 264726472F497CB90093116D /* Build configuration list for PBXNativeTarget "currency_converter" */;
+			buildConfigurationList = 264726742F49950F0093116D /* Build configuration list for PBXNativeTarget "currency_converter" */;
 			buildPhases = (
-				264726382F497CB80093116D /* Sources */,
-				264726392F497CB80093116D /* Frameworks */,
-				2647263A2F497CB80093116D /* Resources */,
+				264726652F49950E0093116D /* Sources */,
+				264726662F49950E0093116D /* Frameworks */,
+				264726672F49950E0093116D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				2647263E2F497CB80093116D /* currency_converter */,
+				2647266B2F49950E0093116D /* currency_converter */,
 			);
 			name = currency_converter;
 			packageProductDependencies = (
 			);
 			productName = currency_converter;
-			productReference = 2647263C2F497CB80093116D /* currency_converter.app */;
+			productReference = 264726692F49950E0093116D /* currency_converter.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		264726342F497CB80093116D /* Project object */ = {
+		264726612F49950E0093116D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
-					2647263B2F497CB80093116D = {
+					264726682F49950E0093116D = {
 						CreatedOnToolsVersion = 26.3;
 					};
 				};
 			};
-			buildConfigurationList = 264726372F497CB80093116D /* Build configuration list for PBXProject "currency_converter" */;
+			buildConfigurationList = 264726642F49950E0093116D /* Build configuration list for PBXProject "currency_converter" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 264726332F497CB80093116D;
+			mainGroup = 264726602F49950E0093116D;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 2647263D2F497CB80093116D /* Products */;
+			productRefGroup = 2647266A2F49950E0093116D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2647263B2F497CB80093116D /* currency_converter */,
+				264726682F49950E0093116D /* currency_converter */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2647263A2F497CB80093116D /* Resources */ = {
+		264726672F49950E0093116D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2647265F2F49828E0093116D /* currency-converter-challenge.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		264726382F497CB80093116D /* Sources */ = {
+		264726652F49950E0093116D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -132,7 +125,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		264726452F497CB90093116D /* Debug */ = {
+		264726722F49950F0093116D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -195,7 +188,7 @@
 			};
 			name = Debug;
 		};
-		264726462F497CB90093116D /* Release */ = {
+		264726732F49950F0093116D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -251,7 +244,7 @@
 			};
 			name = Release;
 		};
-		264726482F497CB90093116D /* Debug */ = {
+		264726752F49950F0093116D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -282,7 +275,7 @@
 			};
 			name = Debug;
 		};
-		264726492F497CB90093116D /* Release */ = {
+		264726762F49950F0093116D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -316,25 +309,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		264726372F497CB80093116D /* Build configuration list for PBXProject "currency_converter" */ = {
+		264726642F49950E0093116D /* Build configuration list for PBXProject "currency_converter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				264726452F497CB90093116D /* Debug */,
-				264726462F497CB90093116D /* Release */,
+				264726722F49950F0093116D /* Debug */,
+				264726732F49950F0093116D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		264726472F497CB90093116D /* Build configuration list for PBXNativeTarget "currency_converter" */ = {
+		264726742F49950F0093116D /* Build configuration list for PBXNativeTarget "currency_converter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				264726482F497CB90093116D /* Debug */,
-				264726492F497CB90093116D /* Release */,
+				264726752F49950F0093116D /* Debug */,
+				264726762F49950F0093116D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 264726342F497CB80093116D /* Project object */;
+	rootObject = 264726612F49950E0093116D /* Project object */;
 }
