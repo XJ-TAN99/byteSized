@@ -10,6 +10,7 @@ import SwiftUI
 @Observable
 class CurrencyViewModel {
     var service: CurrencyServicing = CurrencyService()
+    var cache: CurrencyCache = CurrencyCache()
     
     var amountField: String = "0.00"
     var conversionRate: Decimal = 0
@@ -25,9 +26,18 @@ class CurrencyViewModel {
     }
     
     func fetchConversionRate() async throws {
+        if cache.getCache(key: selectedCurrency) != nil {
+            print("Cache Hit")
+            conversionRate = cache.getCache(key: selectedCurrency)!
+            convertCurrency()
+            return
+        }
+        
         do {
+            print("Cache Miss")
             let rate = try await service.fetchConversionRate(for: selectedCurrency.title)
             conversionRate = rate
+            cache.setCache(key: selectedCurrency, rate: rate)
         } catch {
             throw error
         }

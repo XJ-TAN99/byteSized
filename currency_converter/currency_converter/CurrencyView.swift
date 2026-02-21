@@ -31,16 +31,13 @@ struct CurrencyView: View {
             }
             .disabled(!viewModel.isButtonEnabled)
             .padding()
-            HStack {
-                TextField(
-                    "...",
-                    text: $viewModel.convertedField
-                )
-                .disabled(true)
-                .textFieldStyle(.roundedBorder)
-                .padding()
-                Text(viewModel.selectedCurrency.title)
-            }
+            TextField(
+                "...",
+                text: $viewModel.convertedField
+            )
+            .disabled(true)
+            .textFieldStyle(.roundedBorder)
+            .padding()
         }
         .padding()
     }

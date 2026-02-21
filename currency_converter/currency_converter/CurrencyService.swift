@@ -24,7 +24,7 @@ protocol CurrencyServicing {
 
 class CurrencyService: CurrencyServicing {
     func fetchConversionRate(for currencyCode: String) async throws -> Decimal {
-        try await Task.sleep(nanoseconds: 100_000_000)
+        try await Task.sleep(nanoseconds: UInt64(Int.random(in: 100_000_000...500_000_000)))
         
         switch currencyCode {
         case "USD":
