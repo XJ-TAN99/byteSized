@@ -26,9 +26,9 @@ class CurrencyViewModel {
     }
     
     func fetchConversionRate() async throws {
-        if cache.getCache(key: selectedCurrency) != nil {
+        if await cache.getCache(key: selectedCurrency) != nil {
             print("Cache Hit")
-            conversionRate = cache.getCache(key: selectedCurrency)!
+            conversionRate = await cache.getCache(key: selectedCurrency)!
             convertCurrency()
             return
         }
@@ -37,7 +37,7 @@ class CurrencyViewModel {
             print("Cache Miss")
             let rate = try await service.fetchConversionRate(for: selectedCurrency.title)
             conversionRate = rate
-            cache.setCache(key: selectedCurrency, rate: rate)
+            await cache.setCache(key: selectedCurrency, rate: rate)
         } catch {
             throw error
         }
@@ -57,13 +57,14 @@ class CurrencyViewModel {
 }
 
 enum Currency: String, CaseIterable, Identifiable {
-    case usd, jpy, vnd
+    case usd, eur, gbp, jpy
     var id: Self { self }
     var title: String {
         switch self {
         case .usd: return "USD"
+        case .eur: return "EUR"
+        case .gbp: return "GBP"
         case .jpy: return "JPY"
-        case .vnd: return "VND"
         }
     }
 }

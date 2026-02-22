@@ -18,23 +18,53 @@ enum CurrencyServiceError: LocalizedError {
     }
 }
 
-protocol CurrencyServicing {
-    func fetchConversionRate(for currencyCode: String) async throws -> Decimal
+struct LatestRatesResponse: Decodable {
+    let base: String
+    let rates: [String: Decimal]
 }
 
-class CurrencyService: CurrencyServicing {
-    func fetchConversionRate(for currencyCode: String) async throws -> Decimal {
-        try await Task.sleep(nanoseconds: UInt64(Int.random(in: 100_000_000...500_000_000)))
-        
-        switch currencyCode {
-        case "USD":
-            return 0.79
-        case "JPY":
-            return 122.41
-        case "VND":
-            return 20497.33
-        default:
-            throw CurrencyServiceError.unsupportedCurrency
+protocol CurrencyServicing {
+    var baseURL: URL { get }
+    var session: URLSession { get }
+    
+    init(session: URLSession)
+    
+    func fetchConversionRate(from: String, to: String) async throws -> Decimal
+}
+
+final class CurrencyService: CurrencyServicing {
+    let baseURL = URL(string: "https://api.exchangerate.host")!
+    let session: URLSession
+    
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
+    
+    func fetchConversionRate(from: String, to: String) async throws -> Decimal {
+        var components = URLComponents(
+            url: baseURL.appendingPathComponent("latest"),
+            resolvingAgainstBaseURL: false
+        )!
+        components.queryItems = [
+            URLQueryItem(name: "base", value: from),
+            URLQueryItem(name: "symbols", value: to)
+        ]
+        guard let url = components.url else {
+            throw URLError(.badURL)
         }
+        let (data, response) = try await session.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200..<300 ~= httpResponse.statusCode else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let decoded = try JSONDecoder().decode(LatestRatesResponse.self, from: data)
+        
+        guard let rate = decoded.rates[to] else {
+            throw NSError(domain: "RateMissing", code: 0)
+        }
+        
+        return rate
     }
 }

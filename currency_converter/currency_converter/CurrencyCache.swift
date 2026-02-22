@@ -8,15 +8,11 @@
 import Foundation
 
 struct CurrencyCacheValue {
-    let rate: Decimal
+    let rates: [String : Decimal]
     let expiry: Date
-
-    var isFresh: Bool {
-        expiry > Date()
-    }
 }
 
-final class CurrencyCache {
+actor CurrencyCache {
     private var cache: [Currency: CurrencyCacheValue] = [:]
     private let cacheDuration: TimeInterval
 
@@ -24,17 +20,25 @@ final class CurrencyCache {
         self.cacheDuration = cacheDuration
     }
 
-    func setCache(key: Currency, rate: Decimal) {
+    func setCache(key: Currency, rates: [String: Decimal]) {
         let expiry = Date().addingTimeInterval(cacheDuration)
-        cache[key] = CurrencyCacheValue(rate: rate, expiry: expiry)
+        cache[key] = CurrencyCacheValue(rates: rates, expiry: expiry)
     }
 
-    func getCache(key: Currency) -> Decimal? {
-        guard let cached = cache[key], cached.isFresh else {
+    func getCache(key: Currency) -> [String: Decimal]? {
+        guard let cached = cache[key], cached.expiry > Date() else {
             cache[key] = nil
             return nil
         }
-        return cached.rate
+        return cached.rates
+    }
+    
+    func getRate(base: Currency, to target: String) -> Decimal? {
+        guard let cached = cache[base], Date() < cached.expiry else {
+            cache[base] = nil
+            return nil
+        }
+        return cached.rates[target]
     }
 
     func clearCache(for key: Currency) {
