@@ -9,14 +9,17 @@ import SwiftUI
 
 @Observable
 class CurrencyViewModel {
-    var service: CurrencyServicing = CurrencyService()
-    var cache: CurrencyCache = CurrencyCache()
+    private let service: CurrencyService
     
     var amountField: String = "0.00"
     var conversionRate: Decimal = 0
     var convertedField: String = "0.00"
     var selectedCurrency: Currency = .usd
     var isButtonEnabled: Bool = true
+    
+    init() {
+        self.service = CurrencyService(api: CurrencyAPI(), cache: CurrencyCache())
+    }
 
     func convertCurrency() {
         guard let amountValue = Decimal(string: amountField), amountValue != 0 else { return }
@@ -25,30 +28,12 @@ class CurrencyViewModel {
         convertedField = formattedString
     }
     
-    func fetchConversionRate() async throws {
-        if await cache.getCache(key: selectedCurrency) != nil {
-            print("Cache Hit")
-            conversionRate = await cache.getCache(key: selectedCurrency)!
-            convertCurrency()
-            return
-        }
-        
-        do {
-            print("Cache Miss")
-            let rate = try await service.fetchConversionRate(for: selectedCurrency.title)
-            conversionRate = rate
-            await cache.setCache(key: selectedCurrency, rate: rate)
-        } catch {
-            throw error
-        }
-    }
-    
-    func onConvertPress() async {
+    func onConvertButtonPress() async {
         isButtonEnabled = false
         defer { isButtonEnabled = true }
         
         do {
-            try await fetchConversionRate()
+            conversionRate = try await service.fetchConversionRate(from: selectedCurrency, to: selectedCurrency)
             convertCurrency()
         } catch {
             print("Error fetching rate: \(error.localizedDescription)")

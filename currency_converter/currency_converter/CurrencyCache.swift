@@ -33,9 +33,9 @@ actor CurrencyCache {
         return cached.rates
     }
     
-    func getRate(base: Currency, to target: String) -> Decimal? {
-        guard let cached = cache[base], Date() < cached.expiry else {
-            cache[base] = nil
+    func getCache(key: Currency, to target: String) -> Decimal? {
+        guard let cached = cache[key], Date() < cached.expiry else {
+            cache[key] = nil
             return nil
         }
         return cached.rates[target]

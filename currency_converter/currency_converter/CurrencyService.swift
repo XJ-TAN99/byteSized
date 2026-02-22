@@ -7,8 +7,12 @@
 
 import Foundation
 
+protocol CurrencyServicing {
+    func fetchConversionRate(from base: Currency, to target: Currency) async throws -> Decimal
+}
+
 enum CurrencyServiceError: LocalizedError {
-    case unsupportedCurrency
+    case unsupportedCurrency    
 
     var errorDescription: String? {
         switch self {
@@ -17,54 +21,25 @@ enum CurrencyServiceError: LocalizedError {
         }
     }
 }
-
-struct LatestRatesResponse: Decodable {
-    let base: String
-    let rates: [String: Decimal]
-}
-
-protocol CurrencyServicing {
-    var baseURL: URL { get }
-    var session: URLSession { get }
-    
-    init(session: URLSession)
-    
-    func fetchConversionRate(from: String, to: String) async throws -> Decimal
-}
-
+ 
 final class CurrencyService: CurrencyServicing {
-    let baseURL = URL(string: "https://api.exchangerate.host")!
-    let session: URLSession
+    private let api: CurrencyAPI
+    private let cache: CurrencyCache
     
-    init(session: URLSession = .shared) {
-        self.session = session
+    init(api: CurrencyAPI, cache: CurrencyCache) {
+        self.api = api
+        self.cache = cache
     }
-    
-    func fetchConversionRate(from: String, to: String) async throws -> Decimal {
-        var components = URLComponents(
-            url: baseURL.appendingPathComponent("latest"),
-            resolvingAgainstBaseURL: false
-        )!
-        components.queryItems = [
-            URLQueryItem(name: "base", value: from),
-            URLQueryItem(name: "symbols", value: to)
-        ]
-        guard let url = components.url else {
-            throw URLError(.badURL)
-        }
-        let (data, response) = try await session.data(from: url)
-        
-        guard let httpResponse = response as? HTTPURLResponse,
-              200..<300 ~= httpResponse.statusCode else {
-            throw URLError(.badServerResponse)
+
+    func fetchConversionRate(from base: Currency, to target: Currency) async throws -> Decimal {
+        // check cache
+        if let cached = await cache.getCache(key: base, to: target.title) {
+            return cached
         }
         
-        let decoded = try JSONDecoder().decode(LatestRatesResponse.self, from: data)
-        
-        guard let rate = decoded.rates[to] else {
-            throw NSError(domain: "RateMissing", code: 0)
-        }
-        
-        return rate
+        // cache miss - network call
+        let rates = try await api.getConversionRate(from: base.title)
+        await cache.setCache(key: base, rates: rates)
+        return rates[target.title]!
     }
 }

@@ -24,7 +24,7 @@ struct CurrencyView: View {
             makeCurrencyList();
             Button {
                 Task {
-                    await viewModel.onConvertPress()
+                    await viewModel.onConvertButtonPress()
                 }
             } label: {
                 Label("Convert", systemImage: "arrow.down")
